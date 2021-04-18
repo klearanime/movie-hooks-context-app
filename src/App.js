@@ -1,32 +1,52 @@
 import React, { Component } from 'react'
+import { useState } from "react"
 
 
 
-export default class App extends Component {
-  constructor(props) {
-    super(props)
+function App() {
 
-    this.input = React.createRef()
+  const [searchValue, setSearchValue] = useState("")
 
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-
-  }
-
-
-  render() {
-    return (
-      <div style={{ textAlign: "center" }}>
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" ref={this.input} />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    )
-  }
+  return (
+    <div style={{ textAlign: "center" }}>
+      <input 
+        type="search" 
+        name="find-movie"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+      />
+    </div>
+  )
 }
+
+
+
+export default App
+
+
+
+
+//   handleSubmit = (event) => {
+//     event.preventDefault()
+
+//   }
+
+//   componentDidUpdate() {
+//     console.log("co");
+//   }
+
+
+//   render() {
+//     return (
+//       <div style={{ textAlign: "center" }}>
+//         <form onSubmit={this.handleSubmit}>
+//           <input type="text" ref={this.input} />
+//           <button type="submit">Submit</button>
+//         </form>
+//       </div>
+//     )
+//   }
+// }
 
 
 
