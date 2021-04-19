@@ -15,11 +15,11 @@ function App() {
     setSearchValue(value)
 
     const response = await fetch(
-      `http://omdbapi.com/?apikey=${OMBD_API}&s={searchValue}`
+      `http://omdbapi.com/?apikey=${OMBD_API}&s=${searchValue}`
     )
 
     const data = await response.json()
-
+      console.log(data)
     setMovieArray(data.Search || [])
 
   }
