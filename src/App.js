@@ -1,101 +1,45 @@
-import React, { Component } from 'react'
 import { useState } from "react"
+import Search from "./Search/Search"
+import { SearchContext, MovieContext } from "./context/context"
+import './App.css';
 
+let OMBD_API = "d22e2d17"
 
+// http://omdbapi.com/?apikey=d22e2d17&s=$
 
 function App() {
-
   const [searchValue, setSearchValue] = useState("")
+  const [movieArray, setMovieArray] = useState([])
+
+  async function handleOnChange(value) {
+    setSearchValue(value)
+
+    const response = await fetch(
+      `http://omdbapi.com/?apikey=${OMBD_API}&s={searchValue}`
+    )
+
+    const data = await response.json()
+
+    setMovieArray(data.Search || [])
+
+  }
+
+  const searchContextValueObj = {
+    movieSearchTitle: searchValue,
+    handleOnChange,
+    OMBD_API,
+  }
 
   return (
     <div style={{ textAlign: "center" }}>
-      <input 
-        type="search" 
-        name="find-movie"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
+      <SearchContext.Provider value={searchContextValueObj}>
+        <Search />
+      </SearchContext.Provider>
     </div>
   )
 }
 
 
-
-export default App
-
+export default App;
 
 
-
-//   handleSubmit = (event) => {
-//     event.preventDefault()
-
-//   }
-
-//   componentDidUpdate() {
-//     console.log("co");
-//   }
-
-
-//   render() {
-//     return (
-//       <div style={{ textAlign: "center" }}>
-//         <form onSubmit={this.handleSubmit}>
-//           <input type="text" ref={this.input} />
-//           <button type="submit">Submit</button>
-//         </form>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-// import React from "react";
-
-
-
-// const App = () => {
-//   return (
-//     <div style={{ textAlign: "center" }}>
-//       <Wrapper>
-//         <Header />
-//         <Body />
-//         <Footer />
-//       </Wrapper>
-//     </div>
-//   )
-// }
-
-// const Wrapper = (props) => {
-//   // console.log(props);
-//   return <>{props.children}</>
-// }
-
-// const Header = () => {
-//   return (
-//     <div>Header</div>
-//   )
-// }
-
-// const Body = () => {
-//   return (
-//     <div>Body</div>
-//   )
-// }
-
-// const Footer = () => {
-//   return (
-//     <div>Footer</div>
-//   )
-// }
-
-
-
-// export default App
